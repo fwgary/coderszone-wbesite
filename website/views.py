@@ -1,9 +1,10 @@
-from flask import Blueprint, render_template, request, flash, jsonify
+from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
 from flask_login import login_required, current_user
 from .models import Note
 from flask_socketio import SocketIO, emit
 from . import db
 import json
+import requests
 
 views = Blueprint('views', __name__)
 
@@ -26,15 +27,6 @@ def notes():
 
     return render_template("notes.html", user=current_user)
 
-
-@views.route('/chat')
-@login_required
-def chat():
-    return render_template("chat.html",
-                           user=current_user,
-                           nickname=current_user.nick_name)
-
-
 @views.route('/home')
 @login_required
 def home():
@@ -43,7 +35,23 @@ def home():
 
 @views.route('/')
 def home_signed_out():
-    return render_template("home_signed_out.html", user=current_user)
+    return render_template("home.html", user=current_user)
+
+@views.route('/requests', methods=['GET', 'POST'])
+def requestspage():
+    if request.method == 'POST':
+        url = "https://discord.com/api/webhooks/1286054108431913062/x_WFUbY2Amti2W_5XIaisGmRiaJkZuTaO7YjhQbDQW1FTMMTJZVINt9z8dCh-vQqXiAQ"
+        name = request.form.get('name')
+        email = request.form.get('email')
+        message = request.form.get('request')
+        data = {
+                "content" : f"<@&1286018937607164054> \n**A NEW REQUEST CAME IN!**\n**Name:**```{name}```\n**Email:** ```{email}```\n**Message:**```{message}```",
+                "username": "Request bot"
+            }
+        requests.post(url, json = data)
+        flash("You're request was received!", category='success')
+        return redirect(url_for('views.home'))
+    return render_template("requests.html", user=current_user)
 
 
 @views.route('/delete-note', methods=['POST'])

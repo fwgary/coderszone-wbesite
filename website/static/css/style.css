@@ -71,6 +71,12 @@ body{
 	align-content: center;
 }
 
+#homeLogo{
+	border-radius: 50%;
+    width:32px;
+    height:32px;
+}
+
 #message-input{
 	height: 90%;
 	font-size: calc(10px + 1vh + 2vw);

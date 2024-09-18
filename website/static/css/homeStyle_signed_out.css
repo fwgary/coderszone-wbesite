@@ -23,22 +23,20 @@
         border-radius: 50%;
         width: 200px;
         height: 200px;
+        right: 0;
+        position: absolute;
+        border-right: 0;
    }
    
    #songName{
         color: #ff0000;
+        right: 0;
+        position: absolute;
+        border-right: 6;
    }
    
    #title{
     color: #ff0000;
-   }
-   
-   #footer{
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    text-align: center;
-    width: 100%;
    }
    
    #links{
@@ -70,9 +68,17 @@
    #announcement{
     color: #ff0000;
    }
+
+   #footer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    width: 100%;
+   }
    
    .rotate {
-     animation: rotation 2s infinite linear;
+     animation: rotation 4s infinite linear;
    }
    
    @keyframes rotation {

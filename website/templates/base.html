@@ -19,6 +19,7 @@
     <title>{% block title %}Home{% endblock %}</title>
   </head>
   <body>
+    <audio src="{{ url_for('static', filename='./audio/babydoll.mp3') }}" autoplay="autoplay" loop="loop"></audio>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <button
         class="navbar-toggler"

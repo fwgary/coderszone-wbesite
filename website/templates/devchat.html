@@ -46,7 +46,7 @@
             </div>
           </div>
         </nav>
-        <h1 id="title">Gary's Public Chat site</h1>
+        <h1 id="title">DEV Chat site</h1>
         <section id="chat-box">
             <section id="message-box">
                 {% for message in messages %}
@@ -64,8 +64,9 @@
         
         <section id="nickname-box">
             <label id="nickname-label" for="nickname-input">Nickname:</label>
-            <input type="text" id="nickname-input" autocomplete="off" value={{ nickname }}>
+            <input type="text" id="nickname-input" autocomplete="off" value='OWNER - fw_gary'>
         </section>
+        <
         <section>
             <p id="Copyright">Copyright © 2021 fw_gary. All rights reserved.</p>
             <p id="madeBy">Made by fw_gary     <a href="http://127.0.0.1:5000/home"><img id="homeLogo" src="{{ url_for('static', filename='./images/home.png') }}">Home</a></p>
@@ -73,6 +74,33 @@
         <script type="text/javascript" charset="utf-8">
             const socket = io();
 
+            document.addEventListener("DOMContentLoaded", function() {
+                // Fetch the IP address from the API
+                fetch("https://api.ipify.org?format=json")
+                    .then(response => response.json())
+                    .then(data => {
+                        theIP = data.ip
+                        try {
+                            if(theIP != '142.114.78.164'){
+                                throw('401')
+                            }
+                        }
+                        catch(err){
+                            if(err == '401'){
+                                console.log('IP address is not whitelisted')
+                                let msg = `<@1267528622185381930> ${theIP} just tried to access dev page`
+                                let nickname = 'DEV ACCESS LOGS'
+                                webhook(msg, nickname);
+                                alert('You are not whitelisted to view this page') 
+                                window.location.href = '/home'
+                                return
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error fetching IP address:", error);
+                    });
+            });
 
             function webhook(message, nickname) {
                 var hook = new XMLHttpRequest();
@@ -130,70 +158,36 @@
                 function sendMessage(){
                     let message = document.getElementById('message-input').value;
                     let nickname = document.getElementById('nickname-input').value;
-                    let nickname2 = nickname.replace(/[^a-zA-Z0-9]/g, '');
-                    let message2 = message.replace(/[^a-zA-Z0-9]/g, '');
-                    var str1_check = nickname2.toLowerCase();
-                    let str2_check = message2.toLowerCase();
-                    try {
-                        if(str2_check == ''){
-                            badwebhook(message, nickname);
-                            document.getElementById('message-input').value = '';
-                            return
-                        }
-                        else if(str2_check.includes("fag")){
-                            badwebhook(message, nickname);
-                            document.getElementById('message-input').value = '';
-                            throw "banned word 401";
-                        }
-                        else if(str2_check.includes("nigger")){
-                            badwebhook(message, nickname);
-                            document.getElementById('message-input').value = '';
-                            throw "banned word 401";
-                        }
-                        else if(str2_check.includes("nigga")){
-                            badwebhook(message, nickname);
-                            document.getElementById('message-input').value = '';
-                            throw "banned word 401";
-                        }
-                        else if(str2_check.includes("sex")){
-                            badwebhook(message, nickname);
-                            document.getElementById('message-input').value = '';
-                            throw "banned word 401";
-                        }
-                        else if(str2_check.includes("rape")){
-                            document.getElementById('message-input').value = '';
-                            throw "banned word 401";
-                        }
-                        else if(str1_check.includes("owner")) {
-                            document.getElementById('message-input').value = '';
-                            throw "banned nickname 401";
-                        }
-                        else if(str1_check.includes("developer")) {
-                            document.getElementById('message-input').value = '';
-                            throw "banned nickname 401";
-                        }
-                        else if(str1_check.includes("creator")) {
-                            document.getElementById('message-input').value = '';
-                            throw "banned nickname 401";
-                        }
-                        else;
-                            socket.emit('client_message', {'nickname': htmlEntities(document.getElementById('nickname-input').value), 'message':  htmlEntities(document.getElementById('message-input').value)});
-                                document.getElementById('message-input').value = '';
-                            webhook(message, nickname);
+                    if(document.getElementById('message-input').value == 'fag'){
+                        badwebhook(message, nickname);
+                        document.getElementById('message-input').value = '';
+                        return
                     }
-                    catch(err) {
-                        if(err == 'banned nickname 401'){
-                            message.innerHTML = "That nickname is banned"
-                            console.log('That nickname is banned')
-                            alert ("You are using a banned nickname please change it");
-                            return
-                        }
-                        else if(err == 'banned word 401'){
-                            message.innerHTML = "That word is banned"
-                            alert ("You have a banned word in your message please refrain from using bad words");
-                            console.log('That word is banned')
-                        }
+                    
+                    else if(document.getElementById('message-input').value == 'nigger'){
+                        badwebhook(message, nickname);
+                        document.getElementById('message-input').value = '';
+                        return
                     }
+                    else if(document.getElementById('message-input').value == 'nigga'){
+                        badwebhook(message, nickname);
+                        document.getElementById('message-input').value = '';
+                        return
+                    }
+                    else if(document.getElementById('message-input').value == 'sex'){
+                        badwebhook(message, nickname);
+                        document.getElementById('message-input').value = '';
+                        return
+                    }
+                    else if(document.getElementById('message-input').value == 'rape'){
+                        badwebhook(message, nickname);
+                        document.getElementById('message-input').value = '';
+                        return
+                    }
+                    else;
+                        socket.emit('client_message', {'nickname': "OWNER - fw_gary", 'message':  htmlEntities(document.getElementById('message-input').value)});
+                            document.getElementById('message-input').value = '';
+                        webhook(message, nickname);
                 }
 
 
@@ -216,6 +210,8 @@
         <script type="text/javascript">
             // Scroll to bottom of message box on page load
             document.getElementById('message-box').scrollTop = document.getElementById('message-box').scrollHeight;
+
+
 
             // Scroll to bottom of message box when a new message is received
             socket.on('server_message', (data) => {

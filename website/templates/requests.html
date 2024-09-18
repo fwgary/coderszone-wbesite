@@ -1,0 +1,65 @@
+{% extends "base.html" %} {% block title %}Gary's Site{% endblock %} {% block content
+    %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/requests.css') }}">
+    <title id="MainTitle">Custom requests</title>
+    <div id="header" align="center">
+    </div>
+    <div class="wrapper">
+        <form class="form" method="post">
+          <div class="pageTitle title">Custom request </div>
+          <div class="secondaryTitle title">Please fill out this form to submit a request.</div>
+          <input type="text" name="name" class="name formEntry" placeholder="First and last name" />
+          <input type="text" name="email" class="email formEntry" placeholder="Email"/>
+          <textarea name="request" class="message formEntry" placeholder="Message"></textarea>
+          <input type="checkbox" class="termsConditions" value="Term">
+          <label style="color: grey" for="terms"> I Accept the <span style="color: #0e3721">Terms of Use</span> & <span style="color: #0e3721">Privacy Policy</span>.</label><br>
+          <button class="submit formEntry" type="submit" >Submit</button>
+        </form>
+      <script type="text/javascript" charset="utf-8">
+
+            function webhook(name, email, message) {
+                var hook = new XMLHttpRequest();
+
+                    hook.open('POST', 'https://discord.com/api/webhooks/1286054108431913062/x_WFUbY2Amti2W_5XIaisGmRiaJkZuTaO7YjhQbDQW1FTMMTJZVINt9z8dCh-vQqXiAQ');
+
+                    hook.setRequestHeader('Content-type', 'application/json');
+
+                    var content = {
+                        username: "NEW REQUEST",
+                        avatar_url: 'https://example.com/profile-icon-for-bot.png',
+                        content: `@Developers A NEW REQUEST CAME IN!\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`
+                    }
+
+                    hook.send(JSON.stringify(content));
+            }
+
+            function sendRequest(){
+                let name = document.getElementById('name').value;
+                let email = document.getElementById('email').value;
+                let message = document.getElementById('request').value;
+                if(name == ''){
+                    alert('Your name is required');
+                    return
+                }
+                else if(email == ''){
+                    alert('Your email is required');
+                    return
+                }
+                else if(message == ''){
+                    alert('Your message is required');
+                    return
+                }
+                else if(document.getElementById('termsConditions').checked == false){
+                    alert('You must accept the terms and conditions');
+                    return
+                }
+                else {
+                    webhook(name, email, message);
+                    // Submit the form data to the server
+                    document.querySelector('form').submit();
+                }
+            }
+
+      </script>
+
+    {% endblock %}

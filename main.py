@@ -7,11 +7,17 @@ from flask_socketio import SocketIO, emit
 app = create_app()
 socketio = SocketIO(app)
 
-@app.route('/onlinechat')
+@app.route('/chat')
 @login_required
 def index():
     messages = Message.query.all()
     return render_template('./chat.html', user=current_user, nickname=current_user.nick_name, messages=messages)
+
+@app.route('/devchat')
+@login_required
+def devchat():
+    messages = Message.query.all()
+    return render_template('./devchat.html', user=current_user, nickname=current_user.nick_name, messages=messages)
 
 @socketio.on('connected')
 def conn(msg):
