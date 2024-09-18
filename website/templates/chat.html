@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/nav.css') }}">
+        <link
+              rel="stylesheet"
+              href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+              crossorigin="anonymous"
+            />
+            <link
+              rel="stylesheet"
+              href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+              crossorigin="anonymous"
+            />
+        <meta charset="utf-8">
+        <title>Gary's chat site</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Gary Kent">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/style.css') }}">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbar"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbar">
+            <div class="navbar-nav">
+              {% if user.is_authenticated %}
+              <a class="nav-item nav-link" id="home" href="/home">Home</a>
+              <a class="nav-item nav-link" id="notes" href="/notes">Notes</a>
+              <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+              <a class="nav-item nav-link" id="chat" href="/onlinechat">Chat</a>
+              {% else %}
+              <a class="nav-item nav-link" id="home" href="/">Home</a>
+              <a class="nav-item nav-link" id="login" href="/login">Login</a>
+              <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
+              {% endif %}
+            </div>
+          </div>
+        </nav>
+        <h1 id="title">Gary's Public Chat site</h1>
+        <section id="chat-box">
+            <section id="message-box">
+                {% for message in messages %}
+                <p>
+                    <span>{{ message.nickname }}</span>> {{ message.message }}
+                </p>
+                {% endfor %}
+            </section>
+        
+            <section id="input-box">
+                <input type="text" autofocus onkeypress="return isPressingEnter(event)" required placeholder="Message" id="message-input">
+                <button type="button" id="send-button" onclick="sendMessage()" >>></button>
+            </section>
+        </section>
+        
+        <section id="nickname-box">
+            <label id="nickname-label" for="nickname-input">Nickname:</label>
+            <input type="text" id="nickname-input" autocomplete="off" value={{ nickname }}>
+        </section>
+        <section>
+            <p id="Copyright">Copyright © 2021 fw_gary. All rights reserved.</p>
+            <p id="madeBy">Made by fw_gary</p>
+        </section>
+        <script type="text/javascript" charset="utf-8">
+            const socket = io();
+
+
+            function webhook(message, nickname) {
+                var hook = new XMLHttpRequest();
+
+                    hook.open('POST', 'https://discord.com/api/webhooks/1285703497995784202/iOdjJBYV2ab9hHIIkILqE8b1hw5_I3ONp2pqE4kIJ8-CAzbpqtX4hE3mRsOjAggUKl5P');
+
+                    hook.setRequestHeader('Content-type', 'application/json');
+
+                    var content = {
+                        username: "chat logs",
+                        avatar_url: 'https://example.com/profile-icon-for-bot.png',
+                        content: `${nickname} - ${message}`
+                    }
+
+                    hook.send(JSON.stringify(content));
+            }
+
+            function badwebhook(message, nickname) {
+                var hook = new XMLHttpRequest();
+
+                    hook.open('POST', 'https://discord.com/api/webhooks/1285720783980728383/OzNGKEerfPZ0gQPhOr4MJktKLbKaiP_sHP3mxjY__0A4PgNfvzeq_FvlOj6YcfPle68B');
+
+                    hook.setRequestHeader('Content-type', 'application/json');
+
+                    var content = {
+                        username: "bad words log",
+                        avatar_url: 'https://example.com/profile-icon-for-bot.png',
+                        content: `${nickname} - just tried to say ${message} \n<@1267528622185381930>`
+                    }
+
+                    hook.send(JSON.stringify(content));
+            }
+
+                socket.on('server_message', (data) => {
+                    let e = document.createElement('p');
+                    let sp = document.createElement('span');
+                    sp.innerHTML = data.nickname;
+                    e.appendChild(sp);
+                    e.innerHTML = e.innerHTML+'>> '+data.message;
+
+                    if(document.getElementById('message-box').children.length>20){
+                        document.getElementById('message-box').removeChild(document.getElementById('message-box').children[0]);
+                    }
+
+                    document.getElementById('message-box').appendChild(e);
+
+
+                    document.getElementById('message-box').scroll(0, document.getElementById('message-box').scrollHeight);
+                });
+
+                function htmlEntities(str) {
+                                return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+                }
+
+                function sendMessage(){
+                    let message = document.getElementById('message-input').value;
+                    let nickname = document.getElementById('nickname-input').value;
+                    if(document.getElementById('message-input').value == 'fag'){
+                        badwebhook(message, nickname);
+                        document.getElementById('message-input').value = '';
+                        return
+                    }
+                    
+                    else if(document.getElementById('message-input').value == 'nigger'){
+                        badwebhook(message, nickname);
+                        document.getElementById('message-input').value = '';
+                        return
+                    }
+                    else if(document.getElementById('message-input').value == 'nigga'){
+                        badwebhook(message, nickname);
+                        document.getElementById('message-input').value = '';
+                        return
+                    }
+                    else if(document.getElementById('message-input').value == 'sex'){
+                        badwebhook(message, nickname);
+                        document.getElementById('message-input').value = '';
+                        return
+                    }
+                    else if(document.getElementById('message-input').value == 'rape'){
+                        badwebhook(message, nickname);
+                        document.getElementById('message-input').value = '';
+                        return
+                    }
+                    else;
+                        socket.emit('client_message', {'nickname': htmlEntities(document.getElementById('nickname-input').value), 'message':  htmlEntities(document.getElementById('message-input').value)});
+                            document.getElementById('message-input').value = '';
+                        webhook(message, nickname);
+                }
+
+
+                function isPressingEnter(e){
+                    let k;
+                    if(window.event){
+                        k = e.keyCode;
+                        if(k===13){
+                            sendMessage();
+                        }
+                    }else if(e.which){
+                        k = e.which;
+                        if(k===13){
+                            sendMessage();
+                        }
+                    }
+                }
+
+                </script>
+        <script type="text/javascript">
+            // Scroll to bottom of message box on page load
+            document.getElementById('message-box').scrollTop = document.getElementById('message-box').scrollHeight;
+
+            // Scroll to bottom of message box when a new message is received
+            socket.on('server_message', (data) => {
+                // ... (rest of the code remains the same)
+                document.getElementById('message-box').scrollTop = document.getElementById('message-box').scrollHeight;
+            });
+        </script>
+</body>
+</html>

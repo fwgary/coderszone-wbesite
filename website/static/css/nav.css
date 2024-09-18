@@ -1,0 +1,57 @@
+*{
+    margin: 0;
+    padding: 0;
+   }
+   
+   body{
+    background-color: #202020;
+   }
+   
+   #title{
+    color: #ff0000;
+   }
+   
+   #footer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    width: 100%;
+   }
+   
+   #discordLogo{
+    border-radius: 50%;
+    width:32px;
+    height:32px;
+   }
+   
+   #logout{
+    position: absolute;
+    right: 0;
+    height: 10px;
+    top: 0;
+    padding: 15px;
+    text-decoration: none;
+   }
+   
+   #Copyright{
+    position: absolute;
+    bottom: 1;
+    left: 0;
+    width: 100%;
+    text-align: left;
+    color: #ff0000;
+    font-size: 18px;
+    padding: 15px;
+   }
+   
+   #madeBy{
+    position: absolute;
+    bottom: 1;
+    right: -1;
+    width: 100%;
+    text-align: center;
+    color: #ff0000;
+    font-size: 18px;
+    padding: 15px;
+   }

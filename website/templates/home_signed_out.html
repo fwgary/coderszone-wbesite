@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% block title %}Gary's Site{% endblock %} {% block content
+%}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/homeStyle_signed_out.css') }}">
+<h1 id="title" align="center">Welcome to fw_gary's website!</h1>
+<div id="background"></div>
+<div id="Avatar" align="center">
+  <img id="avatar" src="{{ url_for('static', filename='./images/MainAvatar.png') }}" class="GaryAvatar"></src>
+</div>
+<div align="center">
+  <h2>You are not signed in</h2>
+</div>
+<div align="center">
+  <h3>Please sign in to continue</h3>
+</div>
+<div align="center">
+ <h3> Temp placeholder</h3>
+</div>
+<div align="center">
+ <h3> Temp placeholder</h3>
+</div>
+<div align="center">
+ <h3> Temp placeholder</h3>
+</div>
+<div align="center">
+ <h3> Temp placeholder</h3>
+</div>
+<div align="center">
+ <h3> Temp placeholder</h3>
+</div>
+<div align="center">
+ <h3> Temp placeholder</h3>
+</div>
+<div align="center">
+ <h3> Temp placeholder</h3>
+</div>
+<div align="center">
+ <h3> Temp placeholder</h3>
+</div>
+<div align="center">
+ <h3> Temp placeholder</h3>
+</div>
+<div align="center">
+ <h3> Temp placeholder</h3>
+</div>
+<section id="footer">
+ <div>
+  <p id="Copyright">Copyright © 2021 fw_gary. All rights reserved.</p>
+  <p id="madeBy">Made by fw_gary     <a href="https://discord.gg/FWyMSEJAgW"><img id="discordLogo" src="{{ url_for('static', filename='./images/LogoDiscord.jpg') }}">Discord</a></p>
+ </div>
+</section>
+
+
+{% endblock %}

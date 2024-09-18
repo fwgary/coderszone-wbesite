@@ -1,0 +1,85 @@
+*{
+    margin: 0;
+    padding: 0;
+   }
+   
+   body{
+    background-color: #202020;
+   }
+   
+   #aboutMe{
+    background-image: url('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDZzNXVweGJlOHlyaHNsOWVoamZxNDBlMHc5c2IxMHpqbmN2MXVqZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1oF1KAEYvmXBMo6uTS/giphy.gif');
+    background-size: cover;
+    height: 100vh;
+    padding:0;
+    margin:0;
+   }
+   
+   #avatar{
+    border-radius: 50%;
+   }
+   
+   #song{
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+   }
+   
+   #songName{
+        color: #ff0000;
+   }
+   
+   #title{
+    color: #ff0000;
+   }
+   
+   #footer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    width: 100%;
+   }
+   
+   #links{
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: right;
+    text-decoration: none;
+   }
+   
+   #githubLogo{
+    border-radius: 50%;
+    width:32px;
+    height:32px;
+   }
+   
+   #discordLogo{
+    border-radius: 50%;
+    width:32px;
+    height:32px;
+   }
+   
+   #paypallogo{
+    border-radius: 50%;
+    width:32px;
+    height:32px;
+   }
+   
+   #announcement{
+    color: #ff0000;
+   }
+   
+   .rotate {
+     animation: rotation 2s infinite linear;
+   }
+   
+   @keyframes rotation {
+     from {
+       transform: rotate(0deg);
+     }
+     to {
+       transform: rotate(359deg);
+     }
+   }
