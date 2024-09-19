@@ -21,7 +21,7 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/style.css') }}">
     </head>
     <body>
-        <audio src="{{ url_for('static', filename='./audio/babydoll.mp3') }}" autoplay="autoplay" loop="loop"></audio>
+        <audio src="{{ url_for('static', filename='./audio/jellyroll.mp3') }}" autoplay="autoplay" loop="loop"></audio>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <button
             class="navbar-toggler"
@@ -33,16 +33,9 @@
           </button>
           <div class="collapse navbar-collapse" id="navbar">
             <div class="navbar-nav">
-              {% if user.is_authenticated %}
-              <a class="nav-item nav-link" id="home" href="/home">Home</a>
-              <a class="nav-item nav-link" id="notes" href="/notes">Notes</a>
-              <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-              <a class="nav-item nav-link" id="chat" href="/onlinechat">Chat</a>
-              {% else %}
-              <a class="nav-item nav-link" id="home" href="/">Home</a>
-              <a class="nav-item nav-link" id="login" href="/login">Login</a>
-              <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
-              {% endif %}
+              <a class="nav-item nav-link" id="home" href="/devhome">Home</a>
+              <a class="nav-item nav-link" id="chat" href="/devchat">Chat</a>
+              <a class="nav-item nav-link" id="exit_dev_mode" href="/">Exit Dev mode</a>
             </div>
           </div>
         </nav>
@@ -79,16 +72,17 @@
                 fetch("https://api.ipify.org?format=json")
                     .then(response => response.json())
                     .then(data => {
-                        theIP = data.ip
+                        theIP = data.ip;
+                        whitelist = ['142.114.78.164','209.29.96.4'];
                         try {
-                            if(theIP != '142.114.78.164'){
+                            if(!in_array(theIP, whitelist)) {
                                 throw('401')
                             }
                         }
                         catch(err){
                             if(err == '401'){
                                 console.log('IP address is not whitelisted')
-                                let msg = `<@1267528622185381930> ${theIP} just tried to access dev page`
+                                let msg = `<@1267528622185381930> ${theIP} just tried to access dev chat`
                                 let nickname = 'DEV ACCESS LOGS'
                                 webhook(msg, nickname);
                                 alert('You are not whitelisted to view this page') 

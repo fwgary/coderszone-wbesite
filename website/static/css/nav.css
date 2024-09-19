@@ -3,6 +3,11 @@
     padding: 0;
    }
    
+   #exit_dev_mode{
+    left: right;
+    position: static;
+   }
+
    body{
     background-color: #202020;
    }

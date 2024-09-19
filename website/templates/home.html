@@ -1,65 +1,94 @@
 {% extends "base.html" %} {% block title %}Gary's Site{% endblock %} {% block content
   %}
-  <audio src="{{ url_for('static', filename='./audio/babydoll.mp3') }}" autoplay="autoplay" loop="loop"></audio>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/nav.css') }}">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+  </head>
+  <audio src="{{ url_for('static', filename='./audio/jellyroll.mp3') }}" autoplay="autoplay" loop="loop"></audio>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/homeStyle_signed_out.css') }}">
-  <h1 id="title" align="center">Welcome to fw_gary's website!</h1>
-  <div id="background"></div>
+  <h1 id="title" align="center">Welcome to Coder's zone website!</h1>
   <div id="songdisk">
     <img id="song" src="{{ url_for('static', filename='./images/babydoll.png') }}" class="rotate"></src>
     <div>
     </div>
   </div>
-  <div id="Avatar" align="center">
-    <div id="avatar">
-      <img id="avatar" src="{{ url_for('static', filename='./images/MainAvatar.png') }}"></src>
+  <div align="center">
+    <div >
+      <img id="avatarIMG" src="{{ url_for('static', filename='./images/MainAvatar.png') }}"></src>
       </div>
   </div>
-  <div>
-    <div id="temp" align="center">
-      <h3 id="temp">Temp placeholder</h3>
+  <div align="center">
+    <div id="temps" align="center">
+     <h3>Temp placeholder</h3>
     </div>
     <div id="temps" align="center">
-     <h3 id="temps"> Temp placeholder</h3>
-    </div>
-    <div id="temps" align="center">
-      <h3 id="temps"> Temp placeholder</h3>
-    </div>
-    <div id="temps" align="center">
-     <h3 id="temps"> Temp placeholder</h3>
-    </div>
-    <div id="temps" align="center">
-     <h3 id="temps"> Temp placeholder</h3>
-    </div>
-    <div id="temps" align="center">
-     <h3 id="temps"> Temp placeholder</h3>
-    </div>
+      <h2 id="announcement">Our creator is Gary</h2>
+     </div>
+     <div id="temps" align="center">
+      <h3>Temp placeholder</h3>
+     </div>
     <div id="temps" align="center">
       <h2 id="announcement">STILL IN THE MAKING</h2>
     </div>
     <div id="temps" align="center">
-      <h3 id="temps"> Temp placeholder</h3>
-     </div>
-     <div id="temps" align="center">
-      <h3 id="temps"> Temp placeholder</h3>
-     </div>
-     <div id="temps" align="center">
-      <h3 id="temps"> Temp placeholder</h3>
-     </div>
-     <div id="temps" align="center">
-      <h3 id="temps"> Temp placeholder</h3>
-     </div>
-     <div id="temps" align="center">
-      <h3 id="temps"> Temp placeholder</h3>
-     </div>
-     <div id="temps" align="center">
-      <h3 id="temps"> Temp placeholder</h3>
-     </div>
+      <h3>Temp placeholder</h3>
+    </div>
+    <div id="temps" align="center">
+      <h2 id="announcement">YOU WILL NEED A NEW ACCOUNT IF YOU WISH TO USE THIS</h2>
+    </div>
+    <div id="temps" align="center">
+      <h3>Temp placeholder</h3>
+    </div>
+    <div id="aboutmeDiv" align="center">
+      <h2 id="abtitle">A little bit our creator</h2>
+      <section id="aboutMe-box">
+        <section id="info-box">
+          <p id="aboutme">Hi, my name is Gary, I'm a 16-year-old coder from Ontario, Canada, born on December 28th. When I'm not sleeping or at school(which I'm not a fan of), I'm usually coding or programming -- it's something I really enjoy. My main programming language is Python, but I also have experience with HTML, C#, and a bit of JavaScript.<br><br>In my free time, I occasionally play Fortnite, Minecraft, and sometimes Valorant, though I don't game as much as I code. I also love music, and I mostly listen to sad or depressing songs. I tend to keep to myself and enjoy quiet moments, exoecially when it invloves catching up on sleep.</p>
+        </section>
+      </section>
   </div>
+  </div>
+</div>
   <section id="footer">
    <div>
     <p id="Copyright">Copyright © 2021 fw_gary. All rights reserved.</p>
-    <p id="madeBy">Made by fw_gary     <a href="https://discord.gg/coders-zone-1233225700962734100"><img id="discordLogo" src="{{ url_for('static', filename='./images/LogoDiscord.jpg') }}">Discord</a></p>
+    <p id="madeBy" align="center">Made by fw_gary     <a href="https://discord.gg/coders-zone-1233225700962734100"><img id="discordLogo" src="{{ url_for('static', filename='./images/LogoDiscord.jpg') }}">Discord</a></p>
    </div>
   </section>
+
+  <script type="text/javascript" charset="utf-8">
+
+  document.addEventListener("DOMContentLoaded", function() {
+    var newDate = new Date();
+    // Fetch the IP from the API
+    fetch('https://api.ipify.org?format=json')
+      .then(response => response.json())
+      .then(data => {
+        const ip = data.ip;
+        const time = new Date().toLocaleString();
+        // Send the IP and nickname to your Flask app
+        fetch('/store_user_data', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ ip_address: ip, time: time })
+        });
+      });
+  });
+
+  </script>
   
   {% endblock %}

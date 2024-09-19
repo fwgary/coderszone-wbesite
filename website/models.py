@@ -26,3 +26,11 @@ class Message(db.Model):
 
     def __repr__(self):
         return f"Message('{self.nickname}', '{self.message}')"
+    
+class ips(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    ip = db.Column(db.String(64), nullable=False)
+    time = db.Column(db.String(150), nullable=False)  # Add this column
+
+    def __repr__(self):
+        return f"ip('{self.ip}', '{self.time}')"

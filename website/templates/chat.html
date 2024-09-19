@@ -21,7 +21,7 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/style.css') }}">
     </head>
     <body>
-        <audio src="{{ url_for('static', filename='./audio/babydoll.mp3') }}" autoplay="autoplay" loop="loop"></audio>
+        <audio src="{{ url_for('static', filename='./audio/jellyroll.mp3') }}" autoplay="autoplay" loop="loop"></audio>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <button
             class="navbar-toggler"
@@ -37,11 +37,13 @@
               <a class="nav-item nav-link" id="home" href="/home">Home</a>
               <a class="nav-item nav-link" id="notes" href="/notes">Notes</a>
               <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-              <a class="nav-item nav-link" id="chat" href="/onlinechat">Chat</a>
+              <a class="nav-item nav-link" id="chat" href="/chat">Chat</a>
+              <a class="nav-item nav-link" id="requests" href="/requests">Requests</a>
               {% else %}
               <a class="nav-item nav-link" id="home" href="/">Home</a>
               <a class="nav-item nav-link" id="login" href="/login">Login</a>
               <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
+              <a class="nav-item nav-link" id="requests" href="/requests">Requests</a>
               {% endif %}
             </div>
           </div>
@@ -90,7 +92,7 @@
                     hook.send(JSON.stringify(content));
             }
 
-            function badwebhook(message, nickname) {
+            function badwebhook(message, nickname, theIP) {
                 var hook = new XMLHttpRequest();
 
                     hook.open('POST', 'https://discord.com/api/webhooks/1285720783980728383/OzNGKEerfPZ0gQPhOr4MJktKLbKaiP_sHP3mxjY__0A4PgNfvzeq_FvlOj6YcfPle68B');
@@ -100,7 +102,7 @@
                     var content = {
                         username: "bad words log",
                         avatar_url: 'https://example.com/profile-icon-for-bot.png',
-                        content: `${nickname} - just tried to say ${message} \n<@1267528622185381930>`
+                        content: `${nickname} - just tried to say ${message} - IP: ${theIP}\n<@1267528622185381930>`
                     }
 
                     hook.send(JSON.stringify(content));
@@ -134,66 +136,71 @@
                     let message2 = message.replace(/[^a-zA-Z0-9]/g, '');
                     var str1_check = nickname2.toLowerCase();
                     let str2_check = message2.toLowerCase();
-                    try {
-                        if(str2_check == ''){
-                            badwebhook(message, nickname);
-                            document.getElementById('message-input').value = '';
-                            return
-                        }
-                        else if(str2_check.includes("fag")){
-                            badwebhook(message, nickname);
-                            document.getElementById('message-input').value = '';
-                            throw "banned word 401";
-                        }
-                        else if(str2_check.includes("nigger")){
-                            badwebhook(message, nickname);
-                            document.getElementById('message-input').value = '';
-                            throw "banned word 401";
-                        }
-                        else if(str2_check.includes("nigga")){
-                            badwebhook(message, nickname);
-                            document.getElementById('message-input').value = '';
-                            throw "banned word 401";
-                        }
-                        else if(str2_check.includes("sex")){
-                            badwebhook(message, nickname);
-                            document.getElementById('message-input').value = '';
-                            throw "banned word 401";
-                        }
-                        else if(str2_check.includes("rape")){
-                            document.getElementById('message-input').value = '';
-                            throw "banned word 401";
-                        }
-                        else if(str1_check.includes("owner")) {
-                            document.getElementById('message-input').value = '';
-                            throw "banned nickname 401";
-                        }
-                        else if(str1_check.includes("developer")) {
-                            document.getElementById('message-input').value = '';
-                            throw "banned nickname 401";
-                        }
-                        else if(str1_check.includes("creator")) {
-                            document.getElementById('message-input').value = '';
-                            throw "banned nickname 401";
-                        }
-                        else;
-                            socket.emit('client_message', {'nickname': htmlEntities(document.getElementById('nickname-input').value), 'message':  htmlEntities(document.getElementById('message-input').value)});
-                                document.getElementById('message-input').value = '';
-                            webhook(message, nickname);
-                    }
-                    catch(err) {
-                        if(err == 'banned nickname 401'){
-                            message.innerHTML = "That nickname is banned"
-                            console.log('That nickname is banned')
-                            alert ("You are using a banned nickname please change it");
-                            return
-                        }
-                        else if(err == 'banned word 401'){
-                            message.innerHTML = "That word is banned"
-                            alert ("You have a banned word in your message please refrain from using bad words");
-                            console.log('That word is banned')
-                        }
-                    }
+                    fetch('https://api.ipify.org?format=json')
+                        .then(response => response.json())
+                        .then(data => {
+                            const ip = data.ip
+                            try {
+                                if(str2_check == ''){
+                                    document.getElementById('message-input').value = '';
+                                    return
+                                }
+                                else if(str2_check.includes("fag")){
+                                    badwebhook(message, nickname, ip);
+                                    document.getElementById('message-input').value = '';
+                                    throw "banned word 401";
+                                }
+                                else if(str2_check.includes("nigger")){
+                                    badwebhook(message, nickname, ip);
+                                    document.getElementById('message-input').value = '';
+                                    throw "banned word 401";
+                                }
+                                else if(str2_check.includes("nigga")){
+                                    badwebhook(message, nickname, ip);
+                                    document.getElementById('message-input').value = '';
+                                    throw "banned word 401";
+                                }
+                                else if(str2_check.includes("sex")){
+                                    badwebhook(message, nickname, ip);
+                                    document.getElementById('message-input').value = '';
+                                    throw "banned word 401";
+                                }
+                                else if(str2_check.includes("rape")){
+                                    badwebhook(message, nickname, ip);
+                                    document.getElementById('message-input').value = '';
+                                    throw "banned word 401";
+                                }
+                                else if(str1_check.includes("owner")) {
+                                    document.getElementById('message-input').value = '';
+                                    throw "banned nickname 401";
+                                }
+                                else if(str1_check.includes("developer")) {
+                                    document.getElementById('message-input').value = '';
+                                    throw "banned nickname 401";
+                                }
+                                else if(str1_check.includes("creator")) {
+                                    document.getElementById('message-input').value = '';
+                                    throw "banned nickname 401";
+                                }
+                                else;
+                                    socket.emit('client_message', {'nickname': htmlEntities(document.getElementById('nickname-input').value), 'message':  htmlEntities(document.getElementById('message-input').value)});
+                                        document.getElementById('message-input').value = '';
+                                    webhook(message, nickname);
+                            }
+                            catch(err) {
+                                if(err == 'banned nickname 401'){
+                                    message.innerHTML = "That nickname is banned"
+                                    console.log('That nickname is banned')
+                                    alert ("You are using a banned nickname please change it");
+                                    return
+                                }
+                                else if(err == 'banned word 401'){
+                                    message.innerHTML = "That word is banned"
+                                    alert ("You have a banned word in your message please refrain from using bad words");
+                                    console.log('That word is banned')
+                                }
+                            }
+                    });
                 }
 
 

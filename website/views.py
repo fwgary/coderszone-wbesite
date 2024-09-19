@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
 from flask_login import login_required, current_user
-from .models import Note
+from .models import Note, ips
 from flask_socketio import SocketIO, emit
 from . import db
 import json
@@ -27,15 +27,6 @@ def notes():
 
     return render_template("notes.html", user=current_user)
 
-@views.route('/home')
-@login_required
-def home():
-    return render_template("home.html", user=current_user)
-
-
-@views.route('/')
-def home_signed_out():
-    return render_template("home.html", user=current_user)
 
 @views.route('/requests', methods=['GET', 'POST'])
 def requestspage():
