@@ -109,13 +109,6 @@
     height:32px;
    }
 
-   #footer{
-    position: static;
-    bottom: 0;
-    right: 0;
-    text-align: center;
-    width: 100%;
-   }
    
    .rotate {
      animation: rotation 4s infinite linear;

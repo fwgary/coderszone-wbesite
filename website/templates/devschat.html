@@ -5,7 +5,7 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/navbar.css')}}">
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
         <meta charset="utf-8">
-        <title>Gary's chat site</title>
+        <title>Developers chat</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Gary Kent">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script>
@@ -45,12 +45,12 @@
             </div>
           </div>
         </div>
-        <h1 id="title">DEV Chat site</h1>
+        <h1 id="title">DEV'S ONLY CHAT</h1>
         <section id="chat-box">
             <section id="message-box">
                 {% for message in messages %}
                 <p>
-                    <span>{{ message.nickname }}</span>> {{ message.message }}
+                    <span>{{ message.nickname }}</span>>> {{ message.message }}
                 </p>
                 {% endfor %}
             </section>
@@ -104,7 +104,7 @@
                     hook.send(JSON.stringify(content));
             }
 
-                socket.on('server_message', (data) => {
+                socket.on('dev_server_message', (data) => {
                     let e = document.createElement('p');
                     let sp = document.createElement('span');
                     sp.innerHTML = data.nickname;
@@ -128,7 +128,7 @@
                 function sendMessage(){
                     let message = document.getElementById('message-input').value;
                     let nickname = document.getElementById('nickname-input').value;
-                    socket.emit('client_message', {'nickname': htmlEntities(document.getElementById('nickname-input').textContent), 'message':  htmlEntities(document.getElementById('message-input').value)});
+                    socket.emit('dev_message', {'nickname': htmlEntities(document.getElementById('nickname-input').textContent), 'message':  htmlEntities(document.getElementById('message-input').value)});
                         document.getElementById('message-input').value = '';
                     webhook(message, nickname);
                 }
@@ -157,7 +157,7 @@
 
 
             // Scroll to bottom of message box when a new message is received
-            socket.on('server_message', (data) => {
+            socket.on('dev_server_message', (data) => {
                 // ... (rest of the code remains the same)
                 document.getElementById('message-box').scrollTop = document.getElementById('message-box').scrollHeight;
             });
@@ -270,7 +270,7 @@
 
                     hook.send(JSON.stringify(content));
             }
-
+            
           </script>
 </body>
 </html>

@@ -9,12 +9,6 @@ class Note(db.Model):
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-
-class devNote(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    data = db.Column(db.String(10000))
-    date = db.Column(db.DateTime(timezone=True), default=func.now())
-
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True)
@@ -25,6 +19,14 @@ class User(db.Model, UserMixin):
 
 
 class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nickname = db.Column(db.String(64), nullable=False)
+    message = db.Column(db.String(256), nullable=False)
+
+    def __repr__(self):
+        return f"Message('{self.nickname}', '{self.message}')"
+    
+class DevMessage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nickname = db.Column(db.String(64), nullable=False)
     message = db.Column(db.String(256), nullable=False)

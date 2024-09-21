@@ -2,52 +2,49 @@
 <html lang="pt-BR">
     <head>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/nav.css') }}">
-        <link
-              rel="stylesheet"
-              href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-              crossorigin="anonymous"
-            />
-            <link
-              rel="stylesheet"
-              href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-              crossorigin="anonymous"
-            />
+        
         <meta charset="utf-8">
         <title>Gary's chat site</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Gary Kent">
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/style.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/navbar.css')}}">
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
     </head>
     <body>
         <audio src="{{ url_for('static', filename='./audio/jellyroll.mp3') }}" autoplay="autoplay" loop="loop"></audio>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbar"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbar">
-            <div class="navbar-nav">
+        <div id="nav-bar-n">
+            <input id="nav-toggle" type="checkbox"/>
+            <div id="nav-header"><a id="nav-title" href="https://discord.gg/coders-zone-1233225700962734100" target="_blank">C<i class="fab fa-codepen"></i>DERS ZONE</a>
+              <label for="nav-toggle"><span id="nav-toggle-burger"></span></label>
+              <hr/>
+            </div>
+            <div id="nav-content">
+            <div class="nav-button"><i class="fas fa-fire"></i><span><a href="/">Home</a></span></div>
+              <div id="your_work" class="nav-button"><i class="fas fa-palette"></i><span><a href="/notes">Notes</a></span></div>
+              <hr/>
+              <div class="nav-button"><i class="fas fa-fire"></i><span><a href="/chat">Public chat</a></span></div>
+              <div class="nav-button"><i class="fas fa-magic"></i><span><a href="/requests">Requests</a></span></div>
+              <hr/>
+              <div id="devportal" class="nav-button"><i class="fas fa-gem"></i><span><a href="/dev">Developer portal</a></span></div>
+              <div id="nav-content-highlight"></div>
+            </div>
+            <input id="nav-footer-toggle" type="checkbox"/>
+            <div id="nav-footer">
+              <div id="nav-footer-heading">
               {% if user.is_authenticated %}
-              <a class="nav-item nav-link" id="home" href="/home">Home</a>
-              <a class="nav-item nav-link" id="notes" href="/notes">Notes</a>
-              <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-              <a class="nav-item nav-link" id="chat" href="/chat">Chat</a>
-              <a class="nav-item nav-link" id="requests" href="/requests">Requests</a>
+              <a href="/logout">Logout</a>
+              <div id="nav-footer-avatar"><img id="pfp" src="https://gravatar.com/avatar/4474ca42d303761c2901fa819c4f2547"/></div>
+              <div id="nav-footer-titlebox"><a id="nav-footer-title" target="_blank">Coder</a><span id="nav-footer-subtitle">Member</span></div>
               {% else %}
-              <a class="nav-item nav-link" id="home" href="/">Home</a>
-              <a class="nav-item nav-link" id="login" href="/login">Login</a>
-              <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
-              <a class="nav-item nav-link" id="requests" href="/requests">Requests</a>
+              <div id="nav-footer-titlebox"><a id="nav-footer-title" href="/login">Login</a></div>
+              <label for="nav-footer-toggle"><i class="fas fa-caret-up"></i></label>
               {% endif %}
             </div>
+            </div>
           </div>
-        </nav>
+        </div>
         <h1 id="title">Gary's Public Chat site</h1>
         <section id="chat-box">
             <section id="message-box">
@@ -68,13 +65,48 @@
             <label id="nickname-label" for="nickname-input">Nickname:</label>
             <input type="text" id="nickname-input" autocomplete="off" value={{ nickname }}>
         </section>
-        <section>
+        <div id="footer">
             <p id="Copyright">Copyright © 2021 fw_gary. All rights reserved.</p>
             <p id="madeBy">Made by fw_gary     <a href="http://127.0.0.1:5000/home"><img id="homeLogo" src="{{ url_for('static', filename='./images/home.png') }}">Home</a></p>
-        </section>
+        </div>
         <script type="text/javascript" charset="utf-8">
             const socket = io();
 
+            document.addEventListener("DOMContentLoaded", function() {
+            // Fetch the IP address from the API
+            fetch("https://api.ipify.org?format=json")
+                  .then(response => response.json())
+                  .then(data => {
+                        theIP = data.ip
+                              if(theIP == '142.114.78.164'){
+                                    console.log('IP authorised')
+                                    document.getElementById('nav-footer-subtitle').textContent='OWNER'
+                                    document.getElementById('pfp').src="{{ url_for('static', filename='./images/MainAvatar.png') }}"
+                                    document.getElementById('nav-footer-title').textContent='fw.gary'
+                              }
+                              else if(theIP == '146.75.188.3'){
+                                    console.log('IP authorised')
+                                    document.getElementById('nav-footer-subtitle').textContent='OWNER'
+                                    document.getElementById('pfp').src="{{ url_for('static', filename='./images/MainAvatar.png') }}"
+                                    document.getElementById('nav-footer-title').textContent='fw.gary'
+                              }
+                              else if(theIP == '209.29.96.4'){
+                                console.log('IP authorised')
+                                document.getElementById('nav-footer-subtitle').textContent='OWNER'
+                                document.getElementById('pfp').src="{{ url_for('static', filename='./images/MainAvatar.png') }}"
+                                document.getElementById('nav-footer-title').textContent='fw.gary'
+                              }
+                              else if(theIP == '78.101.167.102'){
+                                    console.log('IP authorised welcome fw.noyx')
+                                    document.getElementById('nav-footer-subtitle').textContent='JR DEV'
+                                    document.getElementById('pfp').src="{{ url_for('static', filename='./images/Noyxpfp.png') }}"
+                                    document.getElementById('nav-footer-title').textContent='fw.noyx'
+                              }
+                              else{
+                                    document.getElementById('devportal').style.visibility ='hidden'
+                              }
+            });
+        });
 
             function webhook(message, nickname) {
                 var hook = new XMLHttpRequest();

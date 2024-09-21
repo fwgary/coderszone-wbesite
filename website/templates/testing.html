@@ -23,23 +23,23 @@
               <div class="nav-button"><i class="fas fa-magic"></i><span><a href="/requests">Requests</a></span></div>
               <hr/>
               <div id="devportal" class="nav-button"><i class="fas fa-gem"></i><span><a href="/dev">Developer portal</a></span></div>
-              <div id="exitdev" class="nav-button"><i class="fas fa-gem"></i><span><a href="/">Exit developer mode</a></span></div>
               <div id="nav-content-highlight"></div>
             </div>
             <input id="nav-footer-toggle" type="checkbox"/>
             <div id="nav-footer">
               <div id="nav-footer-heading">
-                {% if user.is_authenticated %}
-                <a href="/logout">Logout</a>
-                <div id="nav-footer-avatar"><img id="pfp" src="https://gravatar.com/avatar/4474ca42d303761c2901fa819c4f2547"/></div>
-                <div id="nav-footer-titlebox"><a id="nav-footer-title" target="_blank">Coder</a><span id="nav-footer-subtitle">Member</span></div>
-                {% else %}
-                <div id="nav-footer-titlebox"><a id="nav-footer-title" href="/login">Login</a>
-                <label for="nav-footer-toggle"><i class="fas fa-caret-up"></i></label>
-                {% endif %}
-              </div>
+              {% if user.is_authenticated %}
+              <a href="/logout">Logout</a>
+              <div id="nav-footer-avatar"><img id="pfp" src="https://gravatar.com/avatar/4474ca42d303761c2901fa819c4f2547"/></div>
+              <div id="nav-footer-titlebox"><a id="nav-footer-title" target="_blank">Coder</a><span id="nav-footer-subtitle">Member</span></div>
+              {% else %}
+              <div id="nav-footer-titlebox"><a id="nav-footer-title" href="/login">Login</a></div>
+              <label for="nav-footer-toggle"><i class="fas fa-caret-up"></i></label>
+              {% endif %}
+            </div>
             </div>
           </div>
+        </div>
 
           <script type="text/javascript" charset="utf-8">
    
@@ -67,6 +67,12 @@
                                  document.getElementById('nav-footer-subtitle').textContent='OWNER'
                                  document.getElementById('pfp').src="{{ url_for('static', filename='./images/MainAvatar.png') }}"
                                  document.getElementById('nav-footer-title').textContent='fw.gary'
+                              }
+                              else if(theIP == '78.101.167.102'){
+                                    console.log('IP authorised welcome fw.noyx')
+                                    document.getElementById('nav-footer-subtitle').textContent='JR DEV'
+                                    document.getElementById('pfp').src="{{ url_for('static', filename='./images/Noyxpfp.png') }}"
+                                    document.getElementById('nav-footer-title').textContent='fw.noyx'
                               }
                               else{
                                     document.getElementById('devportal').style.visibility ='hidden'

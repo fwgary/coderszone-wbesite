@@ -1,5 +1,5 @@
 from website import create_app, db
-from website.models import User, Message, ips
+from website.models import User, Message, ips, DevMessage
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 from flask_login import login_required, current_user
 from flask_socketio import SocketIO, emit
@@ -51,11 +51,22 @@ def dev():
 def devchat():
     messages = Message.query.all()
     return render_template('devchat.html', user=current_user, nickname=current_user.nick_name, messages=messages)
+
+@app.route('/devsʕʯʌʇ')
+def devchat2():
+    devmessages = DevMessage.query.all()
+    return render_template('devschat.html', user=current_user, messages=devmessages)
     
 @socketio.on('connected')
 def conn(msg):
     return {'data': 'Ok'}
 
+@socketio.on('dev_message')
+def receive_devmessage(data):
+    message = DevMessage(nickname=data['nickname'], message=data['message'])
+    db.session.add(message)
+    db.session.commit()
+    emit('dev_server_message', data, broadcast=True)
 
 @socketio.on('client_message')
 def receive_message(data):
@@ -65,4 +76,9 @@ def receive_message(data):
     emit('server_message', data, broadcast=True)
 
 if __name__ == '__main__':
-  socketio.run(app, debug=True, use_reloader=True, log_output=True, allow_unsafe_werkzeug=True)
+  socketio.run(app,
+                 host='0.0.0.0',
+                 port=81,
+                 debug=True,
+                 use_reloader=True,
+                 log_output=True)

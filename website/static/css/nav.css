@@ -20,18 +20,18 @@
     color: #ff0000;
    }
    
+   #discordLogo{
+    border-radius: 50%;
+    width:10px;
+    height:10px;
+   }
+
    #footer{
     position: absolute;
     bottom: 0;
     left: 0;
     text-align: center;
     width: 100%;
-   }
-   
-   #discordLogo{
-    border-radius: 50%;
-    width:10px;
-    height:10px;
    }
 
    #logout{

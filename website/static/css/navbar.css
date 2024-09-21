@@ -7,12 +7,9 @@
     --navbar-light-primary: #f5f6fa;
     --navbar-light-secondary: #8392a5;
   }
-  
-  html, body {
-    margin: 0;
-    background: var(--background);
+  body{
+    background-color: var(--background);
   }
-  
   #nav-toggle:checked ~ #nav-header {
     width: calc(var(--navbar-width-min) - 16px);
   }
@@ -23,6 +20,12 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.1s;
+  }
+  #login-form{
+    align-content: center;
+    align-items: center;
+    align-self: center;
+    width: 50vw;
   }
   #nav-toggle:checked ~ #nav-header label[for=nav-toggle] {
     left: calc(50% - 8px);

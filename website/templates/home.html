@@ -1,93 +1,167 @@
-{% extends "base.html" %} {% block title %}Gary's Site{% endblock %} {% block content
-  %}
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/nav.css') }}">
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-      crossorigin="anonymous"
-    />
-  </head>
-  <audio src="{{ url_for('static', filename='./audio/jellyroll.mp3') }}" autoplay="autoplay" loop="loop"></audio>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/homeStyle_signed_out.css') }}">
-  <h1 id="title" align="center">Welcome to Coder's zone website!</h1>
-  <div align="center">
-    <div >
-      <img id="avatarIMG" src="{{ url_for('static', filename='./images/MainAvatar.png') }}"></src>
+<html>
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/nav.css') }}">
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/navbar.css') }}">
+      <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/homeStyle_signed_out.css') }}">
+    </head>
+    <body>
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if
+            messages %} {% for category, message in messages %} {% if category ==
+            'error' %}
+            <div class="alert alert-danger alter-dismissable fade show" role="alert">
+              {{ message }}
+              <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            {% else %}
+            <div class="alert alert-success alter-dismissable fade show" role="alert">
+              {{ message }}
+              <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            {% endif %} {% endfor %} {% endif %} {% endwith %}
+    <div id="nav-bar-n">
+      <input id="nav-toggle" type="checkbox"/>
+      <div id="nav-header"><a id="nav-title" href="https://discord.gg/coders-zone-1233225700962734100" target="_blank">C<i class="fab fa-codepen"></i>DERS ZONE</a>
+        <label for="nav-toggle"><span id="nav-toggle-burger"></span></label>
+        <hr/>
       </div>
+      <div id="nav-content">
+        <div id="your_work" class="nav-button"><i class="fas fa-palette"></i><span><a href="/notes">Notes</a></span></div>
+        <hr/>
+        <div class="nav-button"><i class="fas fa-fire"></i><span><a href="/chat">Public chat</a></span></div>
+        <div class="nav-button"><i class="fas fa-magic"></i><span><a href="/requests">Requests</a></span></div>
+        <hr/>
+        <div id="devportal" class="nav-button"><i class="fas fa-gem"></i><span><a href="/dev">Developer portal</a></span></div>
+        <div id="nav-content-highlight"></div>
+      </div>
+      <input id="nav-footer-toggle" type="checkbox"/>
+      <div id="nav-footer">
+        <div id="nav-footer-heading">
+        {% if user.is_authenticated %}
+        <a href="/logout">Logout</a>
+        <div id="nav-footer-avatar"><img id="pfp" src="https://gravatar.com/avatar/4474ca42d303761c2901fa819c4f2547"/></div>
+        <div id="nav-footer-titlebox"><a id="nav-footer-title" target="_blank">Coder</a><span id="nav-footer-subtitle">Member</span></div>
+        {% else %}
+        <div id="nav-footer-titlebox"><a id="nav-footer-title" href="/login">Login</a></div>
+        <label for="nav-footer-toggle"><i class="fas fa-caret-up"></i></label>
+        {% endif %}
+      </div>
+      </div>
+    </div>
   </div>
-  <div align="center">
-    <div id="temps" align="center">
-     <h3>Temp placeholder</h3>
+    <h1 id="title" align="center">Welcome to Coder's zone website!</h1>
+    <div align="center">
+      <div >
+        <img id="avatarIMG" src="{{ url_for('static', filename='./images/MainAvatar.png') }}"></src>
+        </div>
     </div>
-    <div id="temps" align="center">
-      <h2 id="announcement">Our creator is Gary</h2>
-     </div>
-     <div id="temps" align="center">
-      <h3>Temp placeholder</h3>
-     </div>
-    <div id="temps" align="center">
-      <h2 id="announcement">STILL IN THE MAKING</h2>
-    </div>
-    <div id="temps" align="center">
-      <h3>Temp placeholder</h3>
-    </div>
-    <div id="temps" align="center">
-      <h2 id="announcement">YOU WILL NEED A NEW ACCOUNT IF YOU WISH TO USE THIS</h2>
-    </div>
-    <div id="temps" align="center">
-      <h3>Temp placeholder</h3>
-    </div>
-    <div id="aboutmeDiv" align="center">
-      <h2 id="abtitle">A little bit our creator</h2>
-      <section id="aboutMe-box">
-        <section id="info-box">
-          <p id="aboutme">Hi, my name is Gary, I'm a 16-year-old coder from Ontario, Canada, born on December 28th. When I'm not sleeping or at school(which I'm not a fan of), I'm usually coding or programming -- it's something I really enjoy. My main programming language is Python, but I also have experience with HTML, C#, and a bit of JavaScript.<br><br>In my free time, I occasionally play Fortnite, Minecraft, and sometimes Valorant, though I don't game as much as I code. I also love music, and I mostly listen to sad or depressing songs. I tend to keep to myself and enjoy quiet moments, exoecially when it invloves catching up on sleep.</p>
+    <div align="center">
+      <div id="temps" align="center">
+       <h3>Temp placeholder</h3>
+      </div>
+      <div id="temps" align="center">
+        <h2 id="announcement">Our creator is Gary</h2>
+       </div>
+       <div id="temps" align="center">
+        <h3>Temp placeholder</h3>
+       </div>
+      <div id="temps" align="center">
+        <h2 id="announcement">STILL IN THE MAKING</h2>
+      </div>
+      <div id="temps" align="center">
+        <h3>Temp placeholder</h3>
+      </div>
+      <div id="temps" align="center">
+        <h3 id="temps">Temp placeholder</h3>
+      </div>
+      <div id="temps" align="center">
+        <h3>Temp placeholder</h3>
+      </div>
+      <div id="aboutmeDiv" align="center">
+        <h2 id="abtitle">A little bit our creator</h2>
+        <section id="aboutMe-box">
+          <section id="info-box">
+            <p id="aboutme">Hi, my name is Gary, I'm a 16-year-old coder from Ontario, Canada, born on December 28th. When I'm not sleeping or at school(which I'm not a fan of), I'm usually coding or programming -- it's something I really enjoy. My main programming language is Python, but I also have experience with HTML, C#, and a bit of JavaScript.<br><br>In my free time, I occasionally play Fortnite, Minecraft, and sometimes Valorant, though I don't game as much as I code. I also love music, and I mostly listen to sad or depressing songs. I tend to keep to myself and enjoy quiet moments, exoecially when it invloves catching up on sleep.</p>
+          </section>
         </section>
-      </section>
+    </div>
+    </div>
   </div>
-  </div>
-</div>
-  <section id="footer">
-   <div>
-    <p id="Copyright">Copyright © 2021 fw_gary. All rights reserved.</p>
-    <p id="madeBy">Made by fw_gary     <a href="https://discord.gg/coders-zone-1233225700962734100"><img id="discordLogo" src="{{ url_for('static', filename='./images/LogoDiscord.jpg') }}">Discord</a></p>
-   </div>
-  </section>
-
-  <script type="text/javascript" charset="utf-8">
-
-  document.addEventListener("DOMContentLoaded", function() {
-    var newDate = new Date();
-    // Fetch the IP from the API
-    fetch('https://api.ipify.org?format=json')
-      .then(response => response.json())
-      .then(data => {
-        const ip = data.ip;
-        const time = new Date().toLocaleString();
-        // Send the IP and nickname to your Flask app
-        if(ip =='142.114.78.164'){
-          return
-        }
-        else;
-          fetch('/store_user_data', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ ip_address: ip, time: time })
-          });
-        });
-  });
-
-  </script>
+    <section id="footer">
+     <div>
+      <p id="Copyright">Copyright © 2021 fw_gary. All rights reserved.</p>
+      <p id="madeBy">Made by fw_gary     <a href="https://discord.gg/coders-zone-1233225700962734100"><img id="discordLogo" src="{{ url_for('static', filename='./images/LogoDiscord.jpg') }}">Discord</a></p>
+     </div>
+    </section>
+</body>
+</html>
   
-  {% endblock %}
+    <script type="text/javascript" charset="utf-8">
+  
+    document.addEventListener("DOMContentLoaded", function() {
+      var newDate = new Date();
+      // Fetch the IP from the API
+      fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+          const ip = data.ip;
+          const time = new Date().toLocaleString();
+          // Send the IP and nickname to your Flask app
+          if(ip =='142.114.78.164'){
+            return
+          }
+          else;
+            fetch('/store_user_data', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ ip_address: ip, time: time })
+            });
+          });
+    });
+  
+      document.addEventListener("DOMContentLoaded", function() {
+      // Fetch the IP address from the API
+      fetch("https://api.ipify.org?format=json")
+            .then(response => response.json())
+            .then(data => {
+                  theIP = data.ip
+                        if(theIP == '142.114.78.164'){
+                              console.log('IP authorised')
+                              document.getElementById('nav-footer-subtitle').textContent='OWNER'
+                              document.getElementById('pfp').src="{{ url_for('static', filename='./images/MainAvatar.png') }}"
+                              document.getElementById('nav-footer-title').textContent='fw.gary'
+                        }
+                        else if(theIP == '146.75.188.3'){
+                              console.log('IP authorised')
+                              document.getElementById('nav-footer-subtitle').textContent='OWNER'
+                              document.getElementById('pfp').src="{{ url_for('static', filename='./images/MainAvatar.png') }}"
+                              document.getElementById('nav-footer-title').textContent='fw.gary'
+                        }
+                        else if(theIP == '209.29.96.4'){
+                           console.log('IP authorised')
+                           document.getElementById('nav-footer-subtitle').textContent='OWNER'
+                           document.getElementById('pfp').src="{{ url_for('static', filename='./images/MainAvatar.png') }}"
+                           document.getElementById('nav-footer-title').textContent='fw.gary'
+                        }
+                        else if(theIP == '78.101.167.102'){
+                                    console.log('IP authorised welcome fw.noyx')
+                                    document.getElementById('nav-footer-subtitle').textContent='JR DEV'
+                                    document.getElementById('pfp').src="{{ url_for('static', filename='./images/Noyxpfp.png') }}"
+                                    document.getElementById('nav-footer-title').textContent='fw.noyx'
+                              }
+                        else{
+                              document.getElementById('devportal').style.visibility ='hidden'
+                        }
+                    })
+               });
+            
+  
+    </script>

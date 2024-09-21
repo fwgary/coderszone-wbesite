@@ -1,32 +1,104 @@
 {% extends "base.html" %}
 {% block title %}Login{% endblock %}
 {% block content %}
-<form method="POST">
-  <h3 align="center">Login</h3>
-  <div class="form-group">
-    <label for="email">Email Address</label>
-    <input 
-      type="email" 
-      class="form-control" 
-      id="email" 
-      name="email" 
-      placeholder="Enter email"
-      \>
-  </div>
-  <div class="form-group">
-    <label for="password">password</label>
-    <input 
-      type="password" 
-      class="form-control" 
-      id="password" 
-      name="password" 
-      placeholder="Enter password"
-      \>
-  </div>
-  <br />
-  <button type="submit" class="btn btn-primary">Login</button>
-  <button type="submit" class="btn btn-primary">
-    <a class="btn btn-primary" href="/sign-up">Sign up</a>
-  </button>
-</form>
+<link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/navbar.css')}}">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
+    <div id="nav-bar-n">
+      <input id="nav-toggle" type="checkbox"/>
+      <div id="nav-header"><a id="nav-title" href="https://discord.gg/coders-zone-1233225700962734100" target="_blank">C<i class="fab fa-codepen"></i>DERS ZONE</a>
+        <label for="nav-toggle"><span id="nav-toggle-burger"></span></label>
+        <hr/>
+      </div>
+      <div id="nav-content">
+        <div class="nav-button"><i class="fas fa-fire"></i><span><a href="/">Home</a></span></div>
+        <div id="your_work" class="nav-button"><i class="fas fa-palette"></i><span><a href="/notes">Notes</a></span></div>
+        <hr/>
+        <div class="nav-button"><i class="fas fa-fire"></i><span><a href="/chat">Public chat</a></span></div>
+        <div class="nav-button"><i class="fas fa-magic"></i><span><a href="/requests">Requests</a></span></div>
+        <hr/>
+        <div id="devportal" class="nav-button"><i class="fas fa-gem"></i><span><a href="/dev">Developer portal</a></span></div>
+        <div id="nav-content-highlight"></div>
+      </div>
+      <input id="nav-footer-toggle" type="checkbox"/>
+      <div id="nav-footer">
+        <div id="nav-footer-heading">
+        {% if user.is_authenticated %}
+        <a href="/logout">Logout</a>
+        <div id="nav-footer-avatar"><img id="pfp" src="https://gravatar.com/avatar/4474ca42d303761c2901fa819c4f2547"/></div>
+        <div id="nav-footer-titlebox"><a id="nav-footer-title" target="_blank">Coder</a><span id="nav-footer-subtitle">Member</span></div>
+        {% else %}
+        <div id="nav-footer-titlebox"><a id="nav-footer-title" href="/login">Login</a></div>
+        <label for="nav-footer-toggle"><i class="fas fa-caret-up"></i></label>
+        {% endif %}
+      </div>
+      </div>
+    </div>
+  <div id="login-form" align="center">
+    <form method="POST">
+      <h3 id="title" align="center">Login</h3>
+      <div id="email" class="form-group">
+        <label for="email">Email Address</label>
+        <input 
+          type="email" 
+          class="form-control" 
+          id="email" 
+          name="email" 
+          placeholder="Enter email"
+          \>
+      </div>
+      <div id="passw" class="form-group">
+        <label for="password">password</label>
+        <input
+          type="password" 
+          class="form-control" 
+          id="password" 
+          name="password" 
+          placeholder="Enter password"
+          \>
+      </div>
+      <br />
+      <button type="submit" class="btn btn-primary">Login</button>
+      <button type="submit" class="btn btn-primary">
+        <a class="btn btn-primary" href="/sign-up">Sign up</a>
+      </button>
+    </form>
+</div>
+</div>
 {% endblock %}
+
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function() {
+    // Fetch the IP address from the API
+    fetch("https://api.ipify.org?format=json")
+          .then(response => response.json())
+          .then(data => {
+                theIP = data.ip
+                      if(theIP == '142.114.78.164'){
+                            console.log('IP authorised')
+                      }
+                      else if(theIP == '146.75.188.3'){
+                            console.log('IP authorised')
+                      }
+                      else if(theIP == '209.29.96.4'){
+                        console.log('IP authorised')
+                      }
+                      else if(theIP == '78.101.167.102'){
+                            console.log('IP authorised welcome fw.noyx')
+                      }
+                      else{
+                            document.getElementById('devportal').style.visibility ='hidden'
+                      }
+      });
+    });
+</script>

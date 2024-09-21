@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
 from flask_login import login_required, current_user
-from .models import Note, ips, devNote
+from .models import Note, ips
 from flask_socketio import SocketIO, emit
 from . import db
 import json
