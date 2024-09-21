@@ -11,6 +11,10 @@
    body{
     background-color: #202020;
    }
+
+   #ntitle{
+    color: #ff0000
+   }
    
    #title{
     color: #ff0000;
@@ -26,10 +30,10 @@
    
    #discordLogo{
     border-radius: 50%;
-    width:32px;
-    height:32px;
+    width:10px;
+    height:10px;
    }
-   
+
    #logout{
     position: absolute;
     right: 0;
@@ -42,21 +46,23 @@
    #Copyright{
     position: absolute;
     bottom: 1;
+    right: 0;
     left: 0;
     width: 100%;
     text-align: left;
     color: #ff0000;
-    font-size: 18px;
-    padding: 15px;
+    font-size: 12px;
+    padding: 0px;
    }
    
    #madeBy{
     position: absolute;
-    bottom: 1;
-    right: -1;
+    bottom: 2;
+    right: 0;
+    left: 0;
     width: 100%;
-    text-align: center;
+    text-align: right;
     color: #ff0000;
-    font-size: 18px;
-    padding: 15px;
+    font-size: 12px;
+    padding: 0px;
    }

@@ -18,7 +18,7 @@ def login():
             if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category='success')
                 login_user(user, remember=True)
-                return redirect(url_for('views.home'))
+                return redirect(url_for('views.devtesting'))
             else:
                 flash('Incorrect password, try again.', category='error')
         else:
@@ -31,7 +31,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('views.home_signed_out'))
+    return redirect(url_for('home_signed_out'))
 
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
@@ -65,7 +65,7 @@ def sign_up():
             db.session.commit()
             login_user(new_user, remember=True)
             flash('Account created!', category='success')
-            return redirect(url_for('views.notes'))
+            return redirect(url_for('home'))
 
         else:
             new_user = User(email=email,

@@ -1,8 +1,9 @@
 from website import create_app, db
 from website.models import User, Message, ips
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 from flask_login import login_required, current_user
 from flask_socketio import SocketIO, emit
+import socket
 
 app = create_app()
 socketio = SocketIO(app)
@@ -37,17 +38,20 @@ def home_signed_out():
     IPS = ips.query.all()
     return render_template("home.html", user=current_user, ips=IPS)
 
-@app.route('/devhome')
+@app.route('/devʯʘʍʚ')
 def devhome():
     IPS = ips.query.all()
     return render_template("devhome.html", ips=IPS, user=current_user)
 
-@app.route('/devchat')
-@login_required
+@app.route('/dev')
+def dev():
+    return render_template('checkaccess.html')
+
+@app.route('/devʕʯʌʇ')
 def devchat():
     messages = Message.query.all()
-    return render_template('./devchat.html', user=current_user, nickname=current_user.nick_name, messages=messages)
-
+    return render_template('devchat.html', user=current_user, nickname=current_user.nick_name, messages=messages)
+    
 @socketio.on('connected')
 def conn(msg):
     return {'data': 'Ok'}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/checkauth.css') }}">
+        <body>
+            <img id="pfp" src="https://tenor.com/view/ben-redblock-loading-circle-gif-19361051"/>
+        </body>
+
+        <script type="text/javascript" charset="utf-8">
+   
+            document.addEventListener("DOMContentLoaded", function() {
+            // Fetch the IP address from the API
+            fetch("https://api.ipify.org?format=json")
+                  .then(response => response.json())
+                  .then(data => {
+                        theIP = data.ip
+                        try {
+                              if(theIP == '142.114.78.164'){
+                                    console.log('IP authorised')
+                                    window.location.href = '/devʯʘʍʚ'
+                              }
+                              else if(theIP == '146.75.188.3'){
+                                    console.log('IP authorised')
+                                    window.location.href = '/devʯʘʍʚ'
+                              }
+                              else if(theIP == '209.29.96.4'){
+                                 console.log('IP authorised')
+                                 window.location.href = '/devʯʘʍʚ'
+                              }
+                              else{
+                                    throw('401')
+                              }
+                        }
+                        catch(err){
+                           if(err == '401'){
+                              console.log('IP address is not whitelisted')
+                              let msg = `<@1267528622185381930> ${theIP} just tried to access dev page`
+                                                   alert('Error: 401\nYou are not authorized to access this page') 
+                                                   window.location.href = '/home'
+                                                   return
+                                             }
+                                       }
+                                 })
+                                 .catch(error => {
+                                       console.error("Error fetching IP address:", error);
+                                 });
+                     });
+        </script>
+    </head>
+</html>

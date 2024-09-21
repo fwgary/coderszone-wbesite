@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
 from flask_login import login_required, current_user
-from .models import Note, ips
+from .models import Note, ips, devNote
 from flask_socketio import SocketIO, emit
 from . import db
 import json
@@ -44,6 +44,9 @@ def requestspage():
         return redirect(url_for('views.home'))
     return render_template("requests.html", user=current_user)
 
+@views.route('/devtesting', methods=['GET', 'POST'])
+def devtesting():
+    return render_template("testing.html", user=current_user)
 
 @views.route('/delete-note', methods=['POST'])
 def delete_note():
